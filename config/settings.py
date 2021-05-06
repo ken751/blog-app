@@ -25,7 +25,7 @@ SECRET_KEY = "p6!eb36x_9^6#z11sh9xqt5ipid8@r(2ontroq45l&@)4heey3"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "blog",
     "accounts",
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -121,5 +123,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [str(BASE_DIR.joinpath("static"))]
+STATIC_ROOT = STATIC_ROOT = str(BASE_DIR.joinpath("staticfiles"))
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
